@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">RecyclerViewApp</string>
+    <string name="action_add_type1_item">Добавить элемент 1 вида</string>
+    <string name="action_add_type2_item">Добавить элемент 2 вида</string>
+    <string name="action_exit">Выход</string>
+</resources>
