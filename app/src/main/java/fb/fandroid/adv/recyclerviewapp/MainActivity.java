@@ -33,23 +33,16 @@ ViewHolder’ы должны быть легко различимы на гла�
  */
 public class MainActivity extends AppCompatActivity {
 
-    Menu menu;
+     ArrayList<Contact> contacts;
 
-    ArrayList<Contact> contacts;
 
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-       /*Добавляем метод, который берёт данные из ресурсов меню
-       и преобразует их в пункты меню на экране.
-       По английски "inflate" переводится как надувать,
-       т.е. по замыслу разработчиков Android, мы как бы надуваем данными объект, например, меню.
-       Но на самом деле слово "inflate" происходит от словосочетания in flat - в квартиру.
-       Существует старинная традиция запускать в квартиру первым кота,
-       который исследует все закоулки дома и заявляет о своём согласии жить в нём.
-       Так и мы запускаем данные из XML-файла в объект MenuInflater.
-        */
-        inflater.inflate(R.menu.menu_main, menu);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
+
+     public boolean onOptionsItemSelected(MenuItem item) {
         // получим идентификатор выбранного пункта меню
         int id = item.getItemId();
 
@@ -60,11 +53,13 @@ public class MainActivity extends AppCompatActivity {
                 //-Add Element type1  in Recycler view
 
                 //----end of launch transaction+-
-
-
                 return true;
             case R.id.action_add_type2_item:
-             case R.id.action_exit:
+                //----Add Element type2 in RecyclerView
+
+                //---end of laucnch add
+
+            case R.id.action_exit:
                 // showMessage("Вы выбрали Выход");
 
                 return true;
@@ -83,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         // Lookup the recyclerview in activity layout
         RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
 
-        // Initialize contacts
-        contacts = Contact.createContactsList(20);
+        // Инициализтруем наш список контактов Список элементов первого вида
+        contacts = Contact.createContactsList(2);
         // Create adapter passing in the sample user data
         ContactsAdapter adapter = new ContactsAdapter(contacts);
 

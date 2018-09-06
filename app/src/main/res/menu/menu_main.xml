@@ -8,17 +8,15 @@
 
     <item
         android:id="@+id/action_add_type1_item"
-        android:orderInCategory="101"
-        android:title="@string/action_add_type1_item"
-        app:showAsAction="never" />
-
+        android:orderInCategory="100"
+        android:title="@string/action_add_type1_item" />
     <item
         android:id="@+id/action_add_type2_item"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         android:title="@string/action_add_type2_item" />
     <item
         android:id="@+id/action_exit"
-        android:orderInCategory="101"
+        android:orderInCategory="102"
         android:title="@string/action_exit"
         app:showAsAction="never" />
 

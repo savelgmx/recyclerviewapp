@@ -13,6 +13,9 @@ import java.util.List;
 
 /**
  * Created by Administrator on 04.09.2018.
+ * Однако с помощью RecyclerView адаптер требует наличия объекта «ViewHolder»,
+ * который описывает и обеспечивает доступ ко всем представлениям в каждой строке элемента.
+ *
  */
 
 // Create the basic adapter extending from RecyclerView.Adapter
