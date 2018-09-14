@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Administrator on 04.09.2018.
  * Однако с помощью RecyclerView адаптер требует наличия объекта «ViewHolder»,
  * который описывает и обеспечивает доступ ко всем представлениям в каждой строке элемента.
- *
+ * Мы можем создать базовый пустой адаптер и держатель вместе в ContactsAdapter.java следующим образом:
  */
 
 // Create the basic adapter extending from RecyclerView.Adapter
@@ -66,6 +66,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
+
+    //---------end 0f view Holder dedenition
 
     // Involves populating data into the item through holder
     @Override

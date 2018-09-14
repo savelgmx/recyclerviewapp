@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
      ArrayList<Contact> contacts;
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -52,11 +50,20 @@ public class MainActivity extends AppCompatActivity {
 
                 //-Add Element type1  in Recycler view
 
+                // Add a new contact
+                contacts.add(0, new Contact("Barney", true));
+// Notify the adapter that an item was inserted at position 0
+
+
                 //----end of launch transaction+-
                 return true;
             case R.id.action_add_type2_item:
                 //----Add Element type2 in RecyclerView
-
+// Add a new contact
+                contacts.add(0, new Contact("Barney", true));
+// Notify the adapter that an item was inserted at position 0
+//                contacts.notifyAll();
+            //    adapter.notifyItemInserted(0);
                 //---end of laucnch add
 
             case R.id.action_exit:
@@ -80,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Инициализтруем наш список контактов Список элементов первого вида
         contacts = Contact.createContactsList(2);
+
+
         // Create adapter passing in the sample user data
         ContactsAdapter adapter = new ContactsAdapter(contacts);
 
