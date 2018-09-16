@@ -6,7 +6,8 @@ import java.util.ArrayList;
  * Created by Administrator on 04.09.2018.
  * Модель источник данных
  * Каждый RecyclerView поддерживается источником данных.
- * В этом случае мы определяем класс Contact, который представляет модель данных, отображаемую RecyclerView:
+ * В этом случае мы определяем класс Contact, который представляет модель данных,
+ * отображаемую RecyclerView:
  */
 
 public class Contact {

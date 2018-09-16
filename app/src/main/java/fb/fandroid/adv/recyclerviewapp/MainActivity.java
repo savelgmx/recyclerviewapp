@@ -33,7 +33,7 @@ ViewHolder’ы должны быть легко различимы на гла�
 public class MainActivity extends AppCompatActivity {
 
      ArrayList<Contact> contacts;
-
+    public RecyclerView rvContacts;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -53,19 +53,15 @@ public class MainActivity extends AppCompatActivity {
                 // Add a new contact
                 contacts.add(0, new Contact("Barney", true));
 // Notify the adapter that an item was inserted at position 0
-
-
-                //----end of launch transaction+-
-                return true;
+                rvContacts.getAdapter().notifyDataSetChanged();
+                 return true;
             case R.id.action_add_type2_item:
                 //----Add Element type2 in RecyclerView
 // Add a new contact
                 contacts.add(0, new Contact("Barney", true));
+                rvContacts.getAdapter().notifyDataSetChanged();
 // Notify the adapter that an item was inserted at position 0
-//                contacts.notifyAll();
-            //    adapter.notifyItemInserted(0);
                 //---end of laucnch add
-
             case R.id.action_exit:
                 // showMessage("Вы выбрали Выход");
 
@@ -83,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_users);
         // Lookup the recyclerview in activity layout
-        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
+
+        rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
 
         // Инициализтруем наш список контактов Список элементов первого вида
         contacts = Contact.createContactsList(2);
