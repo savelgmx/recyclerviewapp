@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
 // Notify the adapter that an item was inserted at position 0
                 //---end of laucnch add
             case R.id.action_exit:
-                // showMessage("Вы выбрали Выход");
-
+                 System.exit(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
