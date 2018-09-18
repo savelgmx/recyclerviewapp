@@ -1,5 +1,6 @@
 package fb.fandroid.adv.recyclerviewapp;
 
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,8 +33,16 @@ ViewHolder’ы должны быть легко различимы на гла�
  */
 public class MainActivity extends AppCompatActivity {
 
-     ArrayList<Contact> contacts;
+    private static final String SAVED_RECYCLER_VIEW_STATUS_ID ="saved_recycler_view_status" ;
+    private static final String SAVED_RECYCLER_VIEW_DATASET_ID = "saved_recycler_view_dataset";
+    private ArrayList<Parcelable> mDataset;
+    private Parcelable mListState;
+
+    ArrayList<Contact> contacts;
     public RecyclerView rvContacts;
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -58,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_add_type2_item:
                 //----Add Element type2 in RecyclerView
 // Add a new contact
-                contacts.add(0, new Contact("Barney", true));
+                contacts.add(0, new Contact("Type2", true));
                 rvContacts.getAdapter().notifyDataSetChanged();
 // Notify the adapter that an item was inserted at position 0
                 //---end of laucnch add
@@ -74,23 +83,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-        setContentView(R.layout.activity_users);
-        // Lookup the recyclerview in activity layout
-
+        setContentView(R.layout.activity_users);// Lookup the recyclerview in activity layout
         rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
 
-        // Инициализтруем наш список контактов Список элементов первого вида
-        contacts = Contact.createContactsList(2);
+        //http://qaru.site/questions/144487/recyclerview-store-restore-state-between-activities
+        //---проверим перезапускалось ли приложение( при перевороте экрана например)
+        if (savedInstanceState!=null){
+            restorePreviousState(); // Восстанавливаем данные найденные в Bundle
+        }
 
 
-        // Create adapter passing in the sample user data
-        ContactsAdapter adapter = new ContactsAdapter(contacts);
+
+        contacts = Contact.createContactsList(2);// Инициализтруем наш список контактов Список элементов первого вида
+
+        ContactsAdapter adapter = new ContactsAdapter(contacts);// Create adapter passing in the sample user data
 
         rvContacts.setAdapter(adapter);// Attach the adapter to the recyclerview to populate items
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
         // That's all!
+    }
+    //------далее идет код для сохраниения состояния просмотра ресайклеров в методе onSaveInstanceState
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Parcelable listState = rvContacts.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(SAVED_RECYCLER_VIEW_STATUS_ID, listState);// putting recyclerview position
+
+        mDataset =outState.getParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID);
+
+        outState.putParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID,mDataset); // putting recyclerview items
+        super.onSaveInstanceState(outState);
+    }
+
+    //Восстановить данные просмотра ресайклеров, если экран был повернут
+
+    public void restorePreviousState(){
+
+      //  mListState = mSavedInstanceState.getParcelable(SAVED_RECYCLER_VIEW_STATUS_ID);// getting recyclerview position
+        // getting recyclerview items
+      //  mDataset = mSavedInstanceState.getParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID);
+
+    //    mAdapter.setItems(mDataset);// Restoring adapter items
+        // Restoring recycler view position
+     //   mRvMedia.getLayoutManager().onRestoreInstanceState(mListState);
     }
 }
