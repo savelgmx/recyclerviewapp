@@ -34,10 +34,10 @@
      */
     public class MainActivity extends AppCompatActivity {
 
-        private static final String SAVED_RECYCLER_VIEW_STATUS_ID ="saved_recycler_view_status" ;
-        private static final String SAVED_RECYCLER_VIEW_DATASET_ID = "saved_recycler_view_dataset";
-        private ArrayList<Parcelable> mDataset;
-        private Parcelable mListState;
+        private final String KEY_RECYCLER_STATE = "recycler_state";
+        private RecyclerView mRecyclerView;
+        private static Bundle mBundleRecyclerViewState;
+
 
         ArrayList<Contact> contacts;
         public RecyclerView rvContacts;
@@ -90,11 +90,13 @@
 
             //http://qaru.site/questions/144487/recyclerview-store-restore-state-between-activities
             //---проверим перезапускалось ли приложение( при перевороте экрана например)
+
+          /*
             if (savedInstanceState!=null){
                 Log.d("savedInstanceState", String.valueOf(savedInstanceState));
-                restorePreviousState(); // Восстанавливаем данные найденные в Bundle
-            }
+              }
 
+        */
 
 
             contacts = Contact.createContactsList(2);// Инициализтруем наш список контактов Список элементов первого вида
@@ -107,33 +109,25 @@
             // That's all!
         }
 
-        //------далее идет код для сохраниения состояния просмотра ресайклеров в методе onSaveInstanceState
-        @Override
-        protected void onSaveInstanceState(Bundle outState) {
+         @Override
+        protected void onPause()
+        {
+            super.onPause();
+            // save RecyclerView state
+            mBundleRecyclerViewState = new Bundle();
             Parcelable listState = rvContacts.getLayoutManager().onSaveInstanceState();
-            outState.putParcelable(SAVED_RECYCLER_VIEW_STATUS_ID, listState);// putting recyclerview position
-
-            Log.d("savedInstanceState list", String.valueOf(listState));
-
-            mDataset =outState.getParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID);
-
-            outState.putParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID,mDataset); // putting recyclerview items
-            super.onSaveInstanceState(outState);
-            Log.d("savedInstanceState data", String.valueOf(mDataset));
+            mBundleRecyclerViewState.putParcelable(KEY_RECYCLER_STATE, listState);
         }
 
-        //Восстановить данные просмотра ресайклеров, если экран был повернут
+        @Override
+        protected void onResume()
+        {
+            super.onResume();
 
-        public void restorePreviousState(){
-
-            Log.d("savedInstanceState res", String.valueOf(mListState));
-
-          //  mListState = mSavedInstanceState.getParcelable(SAVED_RECYCLER_VIEW_STATUS_ID);// getting recyclerview position
-            // getting recyclerview items
-          //  mDataset = mSavedInstanceState.getParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID);
-
-        //    mAdapter.setItems(mDataset);// Restoring adapter items
-            // Restoring recycler view position
-         //   mRvMedia.getLayoutManager().onRestoreInstanceState(mListState);
+            // restore RecyclerView state
+            if (mBundleRecyclerViewState != null) {
+                Parcelable listState = mBundleRecyclerViewState.getParcelable(KEY_RECYCLER_STATE);
+               rvContacts.getLayoutManager().onRestoreInstanceState(listState);
+            }
         }
     }
