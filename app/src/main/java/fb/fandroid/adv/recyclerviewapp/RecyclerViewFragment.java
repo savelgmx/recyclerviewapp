@@ -2,7 +2,11 @@
 
 
     import android.os.Bundle;
-    import android.support.v4.app.Fragment;
+    import android.support.v7.widget.LinearLayoutManager;
+    import android.support.v7.widget.RecyclerView;
+    import android.view.LayoutInflater;
+    import android.view.View;
+    import android.view.ViewGroup;
 
     /**
      * Created by andrew on 22.09.2018.
@@ -10,85 +14,50 @@
     //http://qaru.site/questions/619746/what-is-the-best-way-to-save-state-of-recyclerview
 
 
-    public class RecyclerViewFragment extends Fragment {
-        //Recycler View будет в этом фрагменте для ого чтобы
+    public class RecyclerViewFragment extends BaseFragment {
+        private RecyclerView mRecyclerView;
+        private LinearLayoutManager mLayoutManager;
+        //Recycler View будет в этом фрагменте
+        //В моем фрагменте я переопределяю методы и сохраняю состояние mLayoutManager
         // data object we want to retain
 
-        Bundle savedState;
+        //looking for how to make RecyclerView in a Fragment
 
-        public RecyclerViewFragment() {
-            super();
-            if (getArguments() == null)
-                setArguments(new Bundle());
+        //https://www.google.com/search?q=Recyclerview+in+fragmnet&ie=utf-8&oe=utf-8&client=firefox-b-ab
+
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle   savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            View view  = inflater.inflate(R.layout.activity_main, container, false);
+            initInstances(view);
+            setRetainInstance(true);
+            return view;
+        }
+
+        private void initInstances(View view) {
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.rvContacts);
+            mLayoutManager = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(mLayoutManager);
+         //   adapter = new MyAdapter(items);
+           // mRecyclerView.setAdapter(mAdapter);
+        }        
+        
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setRetainInstance(true);
         }
 
         @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-            if (!restoreStateFromArguments()) {
-                onFirstTimeLaunched();
-            }
-        }
-
-        protected void onFirstTimeLaunched() {
-
-        }
-
-        @Override
-        public void onSaveInstanceState(Bundle outState) {
-            super.onSaveInstanceState(outState);
-            saveStateToArguments();
-        }
-
-
-        public void saveStateToArguments() {
-            if (getView() != null)
-                savedState = saveState();
-            if (savedState != null) {
-                Bundle b = getArguments();
-                b.putBundle("internalSavedViewState8954201239547", savedState);
-            }
-        }
-
-        private boolean restoreStateFromArguments() {
-            Bundle b = getArguments();
-            savedState = b.getBundle("internalSavedViewState8954201239547");
-            if (savedState != null) {
-                onRestoreState(savedState);
-                return true;
-            }
-            return false;
-        }
-
-        private Bundle saveState() {
-            Bundle state = new Bundle();
-            onSaveState(state);
-            return state;
-        }
-
-        protected void onRestoreState(Bundle savedInstanceState) {
-
-        }
-
         protected void onSaveState(Bundle outState) {
-
+            super.onSaveState(outState);
+            outState.putParcelable("myState", mLayoutManager.onSaveInstanceState());
         }
 
         @Override
-        public void onStart() {
-            super.onStart();
-        }
-
-        @Override
-        public void onStop() {
-            super.onStop();
-        }
-
-
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-            saveStateToArguments();
-
+        protected void onRestoreState(Bundle savedInstanceState) {
+            super.onRestoreState(savedInstanceState);
+            mLayoutManager.onRestoreInstanceState(savedInstanceState.getParcelable("myState"));
         }
     }
