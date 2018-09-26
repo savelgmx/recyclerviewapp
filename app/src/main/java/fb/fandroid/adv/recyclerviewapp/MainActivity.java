@@ -1,15 +1,14 @@
     package fb.fandroid.adv.recyclerviewapp;
 
-    import android.os.Parcelable;
-    import android.support.v7.app.AppCompatActivity;
     import android.os.Bundle;
-    import android.support.v7.widget.LinearLayoutManager;
-    import android.support.v7.widget.RecyclerView;
-    import android.util.Log;
-    import android.view.Menu;
-    import android.view.MenuItem;
+import android.os.Parcelable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
-    import java.util.ArrayList;
+import java.util.ArrayList;
 
     /*
     RecyclerViewApp
@@ -42,7 +41,7 @@
         ArrayList<Contact> contacts;
         public RecyclerView rvContacts;
 
-
+      //  http://qaru.site/questions/18765/how-to-save-recyclerviews-scroll-position-using-recyclerviewstate
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,6 +97,10 @@
 
         */
 
+            //http://qaru.site/questions/18765/how-to-save-recyclerviews-scroll-position-using-recyclerviewstate
+         //   https://trickyandroid.com/saving-android-view-state-correctly/
+
+            //https://triplebyte.com/candidate_faq
 
             contacts = Contact.createContactsList(2);// Инициализтруем наш список контактов Список элементов первого вида
 
