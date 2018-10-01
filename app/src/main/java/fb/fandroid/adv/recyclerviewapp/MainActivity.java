@@ -10,6 +10,9 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
+    import fb.fandroid.adv.recyclerviewapp.mRecycler.Contact;
+    import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
+
     /*
     RecyclerViewApp
     На экране должен быть определен RecyclerView (на активити или фрагменте - на усмотрение исполнителя)

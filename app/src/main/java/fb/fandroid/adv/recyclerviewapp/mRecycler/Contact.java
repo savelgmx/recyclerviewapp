@@ -1,4 +1,4 @@
-package fb.fandroid.adv.recyclerviewapp;
+package fb.fandroid.adv.recyclerviewapp.mRecycler;
 
 import java.util.ArrayList;
 

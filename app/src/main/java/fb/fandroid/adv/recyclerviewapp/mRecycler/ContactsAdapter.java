@@ -1,4 +1,4 @@
-package fb.fandroid.adv.recyclerviewapp;
+package fb.fandroid.adv.recyclerviewapp.mRecycler;
 
 
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
+
+import fb.fandroid.adv.recyclerviewapp.R;
 
 /**
  * Created by Administrator on 04.09.2018.
@@ -36,7 +38,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
-
             nameTextView = (TextView) itemView.findViewById(R.id.contact_name);
             messageButton = (Button) itemView.findViewById(R.id.message_button);
         }

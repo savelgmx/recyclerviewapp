@@ -1,4 +1,4 @@
-    package fb.fandroid.adv.recyclerviewapp;
+    package fb.fandroid.adv.recyclerviewapp.mFragments;
 
 
     import android.os.Bundle;
@@ -7,6 +7,8 @@
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
+
+    import fb.fandroid.adv.recyclerviewapp.R;
 
     /**
      * Created by andrew on 22.09.2018.

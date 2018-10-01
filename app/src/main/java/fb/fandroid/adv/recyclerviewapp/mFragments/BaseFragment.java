@@ -1,4 +1,4 @@
-    package fb.fandroid.adv.recyclerviewapp;
+    package fb.fandroid.adv.recyclerviewapp.mFragments;
 
     import android.os.Bundle;
     import android.support.v4.app.Fragment;
