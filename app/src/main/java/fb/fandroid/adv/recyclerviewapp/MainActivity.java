@@ -69,6 +69,8 @@ import java.util.ArrayList;
                      return true;
                 case R.id.action_add_type2_item:
                     //----Add Element type2 in RecyclerView
+
+                    //////
     // Add a new contact
                     contacts.add(0, new Contact("Type2", true));
                     rvContacts.getAdapter().notifyDataSetChanged();

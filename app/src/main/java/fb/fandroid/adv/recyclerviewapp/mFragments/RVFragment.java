@@ -27,6 +27,27 @@ public class RVFragment extends Fragment {
 
     public RVFragment() {}
 
+    /*
+      public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View rootView=inflater.inflate(R.layout.intergalactic,null);
+
+        //REFERENCE
+        rv= (RecyclerView) rootView.findViewById(R.id.intergalactic_RV);
+
+        //LAYOUT MANAGER
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //ADAPTER
+        rv.setAdapter(new MyAdapter(getActivity(),spacecrafts));
+
+
+        return rootView;
+    }
+
+     */
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView rv = new RecyclerView(getContext());
