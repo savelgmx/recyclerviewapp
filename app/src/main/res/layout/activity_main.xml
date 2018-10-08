@@ -23,4 +23,11 @@
         android:paddingRight="16dp"
         android:textSize="10sp"
         />
+
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
