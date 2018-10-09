@@ -1,94 +1,59 @@
 package fb.fandroid.adv.recyclerviewapp.mRecycler;
 
-
-import android.content.Context;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import java.util.List;
 
 import fb.fandroid.adv.recyclerviewapp.R;
+import fb.fandroid.adv.recyclerviewapp.mock.Mock;
+import fb.fandroid.adv.recyclerviewapp.mock.MockHolder;
 
-/**
- * Created by Administrator on 04.09.2018.
- * Однако с помощью RecyclerView адаптер требует наличия объекта «ViewHolder»,
- * который описывает и обеспечивает доступ ко всем представлениям в каждой строке элемента.
- * Мы можем создать базовый пустой адаптер и держатель вместе в ContactsAdapter.java следующим образом:
- */
+public class ContactsAdapter extends RecyclerView.Adapter<MockHolder> {
 
-// Create the basic adapter extending from RecyclerView.Adapter
-// Note that we specify the custom ViewHolder which gives us access to our views
-public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
+    private Cursor mCursor;
+    private OnItemClickListener mListener;
 
-    // Provide a direct reference to each of the views within a data item
-    // Used to cache the views within the item layout for fast access
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
-        public TextView nameTextView;
-        public Button messageButton;
+    @Override
+    public MockHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.li_mock, parent, false);
+        return new MockHolder(view);
+    }
 
-        // We also create a constructor that accepts the entire item row
-        // and does the view lookups to find each subview
-        public ViewHolder(View itemView) {
-            // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
-            super(itemView);
-            nameTextView = (TextView) itemView.findViewById(R.id.contact_name);
-            messageButton = (Button) itemView.findViewById(R.id.message_button);
+    @Override
+    public void onBindViewHolder(MockHolder holder, int position) {
+        if(mCursor.moveToPosition(position)){
+            String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+            int id = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Contacts._ID));
+            holder.bind(new Mock(name, id));
+            holder.setListener(mListener);
         }
     }
-    // ... view holder defined above...
 
-    // Store a member variable for the contacts
-    private List<Contact> mContacts;
-
-    // Pass in the contact array into the constructor
-    public ContactsAdapter(List<Contact> contacts) {
-        mContacts = contacts;
-    }
-
-    // ... constructor and member variables
-
-    // Usually involves inflating a layout from XML and returning the holder
-    @Override
-    public ContactsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.item_contact, parent, false);
-
-        // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
-    }
-
-    //---------end 0f view Holder dedenition
-
-    // Involves populating data into the item through holder
-    @Override
-    public void onBindViewHolder(ContactsAdapter.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
-        Contact contact = mContacts.get(position);
-
-        // Set item views based on your views and data model
-        TextView textView = viewHolder.nameTextView;
-        textView.setText(contact.getName());
-        Button button = viewHolder.messageButton;
-        button.setText(contact.isOnline() ? "Message" : "Offline");
-        button.setEnabled(contact.isOnline());
-    }
-
-    // Returns the total count of items in the list
     @Override
     public int getItemCount() {
-        return mContacts.size();
+        return mCursor != null ? mCursor.getCount() : 0;
     }
 
-}
+    public void swapCursor(Cursor cursor) {
+        if (cursor != null && cursor != mCursor) {
+            if (mCursor != null) mCursor.close();
+            mCursor = cursor;
+            notifyDataSetChanged();
+        }
 
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(String id);
+    }
+
+
+}
