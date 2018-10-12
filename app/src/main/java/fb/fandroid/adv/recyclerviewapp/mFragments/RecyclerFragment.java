@@ -13,27 +13,37 @@ import fb.fandroid.adv.recyclerviewapp.R;
 import fb.fandroid.adv.recyclerviewapp.mock.MockAdapter;
 import fb.fandroid.adv.recyclerviewapp.mock.MockGenerator;
 
+
 /**
  * Created by Administrator on 08.10.2018.
  */
 
 public class RecyclerFragment extends Fragment{
-    private RecyclerView mRecycler;
-    private final MockAdapter mMockAdapter=new MockAdapter();
 
+    private final MockAdapter mMockAdapter=new MockAdapter();
+    private RecyclerView mRecycler;
+    /*
+        RecyclerView rv = new RecyclerView(getContext());
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setAdapter(new SimpleRVAdapter(strings));
+        return rv;
+ */
 
     public static RecyclerFragment newInstance() {
      return new RecyclerFragment();
      }
     @Nullable
     @Override
+
+
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fr_recycler, container, false);
-    }
+     }
 
     @Override
  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-         mRecycler = view.findViewById(R.id.recycler);
+        mRecycler = view.findViewById(R.id.recycler);
          }
 
 
