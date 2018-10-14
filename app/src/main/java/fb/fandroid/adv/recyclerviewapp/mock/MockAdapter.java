@@ -19,31 +19,43 @@ import fb.fandroid.adv.recyclerviewapp.R;
  */
 
 public class MockAdapter  extends RecyclerView.Adapter<MockHolder>{
-    private final List<Mock> mMockList = new ArrayList<>();
+    private final List<Mock> mMockList= new ArrayList<>();
     @NonNull
     @Override
     public MockHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     /*
-    Для начала нам нужно получить LayoutInflater. Его мы можем получить с помощью контекста, который хранится в
+    Для начала нам нужно получить LayoutInflater.
+    Его мы можем получить с помощью контекста, который хранится в
     ViewGroup parent.
      */
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());// Теперь у нас есть Inflater.
-        View view = inflater.inflate(R.layout.li_mock, parent, false); //Inflater нужен для того, чтобы из xml-разметки сделать view.
-        return new MockHolder(view); // возвращаем наш ViewHolder, которому передаем на вход созданную view.
+        View view = inflater.inflate(R.layout.li_mock, parent, false); //Inflater
+        // нужен для того, чтобы из xml-разметки сделать view.
+        return new MockHolder(view); // возвращаем наш ViewHolder,
+        // которому передаем на вход созданную view.
     }
 
     @Override
     public void onBindViewHolder(@NonNull MockHolder holder, int position) {
-    /*
+      /*
     На вход он получает holder, либо созданный,
     либо переиспользованный, и position, то есть позицию объекта из адаптера.
      */
+      holder.bind(mMockList.get(position));
     }
+
+  /*  @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+   это для случая когда надо работать с разными холдерами
+    }
+*/
+
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mMockList.size();
     }
+
     public void addData(List<Mock> mocks) {
         mMockList.addAll(mocks);
         notifyDataSetChanged();

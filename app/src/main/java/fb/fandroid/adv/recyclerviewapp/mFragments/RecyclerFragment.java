@@ -20,8 +20,9 @@ import fb.fandroid.adv.recyclerviewapp.mock.MockGenerator;
 
 public class RecyclerFragment extends Fragment{
 
-    private final MockAdapter mMockAdapter=new MockAdapter();
     private RecyclerView mRecycler;
+    private final MockAdapter mMockAdapter=new MockAdapter();
+
     /*
         RecyclerView rv = new RecyclerView(getContext());
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -43,6 +44,7 @@ public class RecyclerFragment extends Fragment{
 
     @Override
  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
         mRecycler = view.findViewById(R.id.recycler);
          }
 
