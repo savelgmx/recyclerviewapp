@@ -1,9 +1,17 @@
 package fb.fandroid.adv.recyclerviewapp.mFragments;
 
+
+import android.content.ContentUris;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.service.voice.VoiceInteractionService;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +22,7 @@ import android.view.ViewGroup;
 import java.util.Random;
 
 import fb.fandroid.adv.recyclerviewapp.R;
+import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
 import fb.fandroid.adv.recyclerviewapp.mock.MockAdapter;
 import fb.fandroid.adv.recyclerviewapp.mock.MockGenerator;
 
@@ -22,11 +31,13 @@ import fb.fandroid.adv.recyclerviewapp.mock.MockGenerator;
  * Created by Administrator on 08.10.2018.
  */
 
-public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,LoaderManager.LoaderCallbacks<Cursor>{
 
     private RecyclerView mRecycler;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private final MockAdapter mMockAdapter=new MockAdapter();
+    //private final MockAdapter mMockAdapter=new MockAdapter();
+
+    private final ContactsAdapter mContactsAdapter = new ContactsAdapter();
     private View mErrorView;
     private Random mRandom = new Random();
 
@@ -64,12 +75,14 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-    mRecycler.setAdapter(mMockAdapter);
+   // mRecycler.setAdapter(mMockAdapter);
+    mRecycler.setAdapter(mContactsAdapter);
 }
 
 
     @Override
     public void onRefresh() {
+/*
         mSwipeRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -87,19 +100,55 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
 
             }
         },2000);
-    }
+*/
 
-    private void showData(int count) {
-        mMockAdapter.addData(MockGenerator.generate(4),true);
-        mErrorView.setVisibility(View.GONE);
-        mRecycler.setVisibility(View.VISIBLE);
+    getLoaderManager().restartLoader(0,null,this);//иницыализируем Лоадер
+
 
     }
 
-    private void showError() {
-        mErrorView.setVisibility(View.VISIBLE);
-        mRecycler.setVisibility(View.GONE);
-        
+//    private void showData(int count) {
+//        mMockAdapter.addData(MockGenerator.generate(4),true);
+//        mErrorView.setVisibility(View.GONE);
+//        mRecycler.setVisibility(View.VISIBLE);
+//
+//    }
+//
+//    private void showError() {
+//        mErrorView.setVisibility(View.VISIBLE);
+//        mRecycler.setVisibility(View.GONE);
+//
+//    }
+//
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        return new CursorLoader(getActivity(),
+                ContactsContract.Contacts.CONTENT_URI,
+                new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME},
+                null,
+                null,
+                ContactsContract.Contacts._ID
+        );
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+
+        mContactsAdapter.swapCursor(data);
+
+        if (mSwipeRefreshLayout.isRefreshing()){//мы еще и убираем индикатор загрузки в SwipeRefreshLayout.
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+
+
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+
     }
 }
 

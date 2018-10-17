@@ -33,12 +33,12 @@ public class MockHolder extends RecyclerView.ViewHolder {
         mId = mock.getValue();
     }
 
-    public void setListener(final ContactsAdapter.OnItemClickListener listener) {
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClick(mId);
-            }
-        });
-    }
+//    public void setListener(final ContactsAdapter.OnItemClickListener listener) {
+//        itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                listener.onItemClick(mId);
+//            }
+//        });
+//    }
 }
