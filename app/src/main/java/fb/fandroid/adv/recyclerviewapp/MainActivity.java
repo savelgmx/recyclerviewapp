@@ -35,7 +35,7 @@ ViewHolder’ы должны быть легко различимы на гла�
 Дополнительно: При перевороте экрана, список должен правильно воссоздаться (элементы должны быть в том же количестве, порядке и типа, что и до поворота).
 Дополнительно: При добавлении элемента, список должен прокручиваться до него (чтобы новый элемент был виден на экране).
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ContactsAdapter.OnItemClickListener{
 
     private final String KEY_RECYCLER_STATE = "recycler_state";
     private RecyclerView mRecyclerView;
@@ -127,4 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
- }
+    @Override
+    public void OnItemClick() {
+        //TODO
+    }
+}

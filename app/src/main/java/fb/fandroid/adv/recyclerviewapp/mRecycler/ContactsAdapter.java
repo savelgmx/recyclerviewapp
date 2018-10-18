@@ -63,5 +63,9 @@ public class ContactsAdapter extends RecyclerView.Adapter<MockHolder>{
         }
     }
 
+    public interface OnItemClickListener{
+
+        void OnItemClick();
+    }
 
 }

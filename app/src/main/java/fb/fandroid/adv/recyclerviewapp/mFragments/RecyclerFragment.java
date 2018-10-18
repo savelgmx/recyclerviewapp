@@ -2,6 +2,7 @@ package fb.fandroid.adv.recyclerviewapp.mFragments;
 
 
 import android.content.ContentUris;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -40,6 +41,8 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
     private final ContactsAdapter mContactsAdapter = new ContactsAdapter();
     private View mErrorView;
     private Random mRandom = new Random();
+    private ContactsAdapter.OnItemClickListener mListener;
+
 
     /*
         RecyclerView rv = new RecyclerView(getContext());
@@ -54,6 +57,14 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Nullable
     @Override
 
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof ContactsAdapter.OnItemClickListener) {
+
+            mListener= (ContactsAdapter.OnItemClickListener) context;
+
+        }
+    }
 
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,44 +93,11 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-/*
-        mSwipeRefreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int count = mRandom.nextInt( 4);
-                if (count==0){
-                    showError();
-                }
-                 else{
-                    showData(count);
-                }
-
-                 if (mSwipeRefreshLayout.isRefreshing()){
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-
-            }
-        },2000);
-*/
 
     getLoaderManager().restartLoader(0,null,this);//иницыализируем Лоадер
 
 
     }
-
-//    private void showData(int count) {
-//        mMockAdapter.addData(MockGenerator.generate(4),true);
-//        mErrorView.setVisibility(View.GONE);
-//        mRecycler.setVisibility(View.VISIBLE);
-//
-//    }
-//
-//    private void showError() {
-//        mErrorView.setVisibility(View.VISIBLE);
-//        mRecycler.setVisibility(View.GONE);
-//
-//    }
-//
 
     @NonNull
     @Override
