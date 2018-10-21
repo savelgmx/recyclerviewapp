@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import java.util.Random;
 
+import fb.fandroid.adv.recyclerviewapp.CardDecoration;
 import fb.fandroid.adv.recyclerviewapp.R;
 import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
 
@@ -80,7 +81,11 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
     mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
    // mRecycler.setAdapter(mMockAdapter);
     mRecycler.setAdapter(mContactsAdapter);
+    mRecycler.addItemDecoration(new CardDecoration());
+
     mContactsAdapter.setListener(mListener);
+
+
 
 }
 
