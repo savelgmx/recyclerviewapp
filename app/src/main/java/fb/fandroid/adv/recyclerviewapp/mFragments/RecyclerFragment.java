@@ -1,12 +1,10 @@
 package fb.fandroid.adv.recyclerviewapp.mFragments;
 
 
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.service.voice.VoiceInteractionService;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,8 +22,6 @@ import java.util.Random;
 
 import fb.fandroid.adv.recyclerviewapp.R;
 import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
-import fb.fandroid.adv.recyclerviewapp.mock.MockAdapter;
-import fb.fandroid.adv.recyclerviewapp.mock.MockGenerator;
 
 
 /**
@@ -44,18 +40,9 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ContactsAdapter.OnItemClickListener mListener;
 
 
-    /*
-        RecyclerView rv = new RecyclerView(getContext());
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setAdapter(new SimpleRVAdapter(strings));
-        return rv;
- */
-
     public static RecyclerFragment newInstance() {
      return new RecyclerFragment();
      }
-    @Nullable
-    @Override
 
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -65,6 +52,11 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         }
     }
+
+
+    @Nullable
+    @Override
+
 
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,6 +80,8 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
     mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
    // mRecycler.setAdapter(mMockAdapter);
     mRecycler.setAdapter(mContactsAdapter);
+    mContactsAdapter.setListener(mListener);
+
 }
 
 
@@ -127,6 +121,11 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
 
+    }
+
+    public void onDetach(){
+        mListener=null;
+        super.onDetach();
     }
 }
 

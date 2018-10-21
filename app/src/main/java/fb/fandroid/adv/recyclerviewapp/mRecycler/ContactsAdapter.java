@@ -14,7 +14,6 @@ import java.util.List;
 
 import fb.fandroid.adv.recyclerviewapp.R;
 import fb.fandroid.adv.recyclerviewapp.mock.Mock;
-import fb.fandroid.adv.recyclerviewapp.mock.MockAdapter;
 import fb.fandroid.adv.recyclerviewapp.mock.MockHolder;
 
 
@@ -22,6 +21,7 @@ import fb.fandroid.adv.recyclerviewapp.mock.MockHolder;
 public class ContactsAdapter extends RecyclerView.Adapter<MockHolder>{
     private final List<Mock> mMockList= new ArrayList<>();
     private Cursor mCursor;
+    private OnItemClickListener mListener;
 
     @NonNull
     @Override
@@ -44,6 +44,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<MockHolder>{
             int id = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Contacts._ID));
 
             holder.bind(new Mock(name,id)); //создать объект Mock и передать в метод bind его – по старой логике.
+            holder.setListener(mListener);
 
              }
 
@@ -63,9 +64,13 @@ public class ContactsAdapter extends RecyclerView.Adapter<MockHolder>{
         }
     }
 
+    public void setListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
     public interface OnItemClickListener{
 
-        void OnItemClick();
+        void OnItemClick(String id);
     }
 
 }

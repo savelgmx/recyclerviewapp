@@ -4,9 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fb.fandroid.adv.recyclerviewapp.R;
 import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
 
@@ -33,12 +30,16 @@ public class MockHolder extends RecyclerView.ViewHolder {
         mId = mock.getValue();
     }
 
-//    public void setListener(final ContactsAdapter.OnItemClickListener listener) {
-//        itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                listener.onItemClick(mId);
-//            }
-//        });
-//    }
+    public void setListener(final ContactsAdapter.OnItemClickListener listener) {
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.OnItemClick(mId);
+            }
+        });
+
+
+    }
+
 }
