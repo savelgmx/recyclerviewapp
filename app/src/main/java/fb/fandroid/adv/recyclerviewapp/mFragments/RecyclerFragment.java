@@ -45,6 +45,12 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
      return new RecyclerFragment();
      }
 
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
     public void onAttach(Context context) {
         super.onAttach(context);
         if(context instanceof ContactsAdapter.OnItemClickListener) {

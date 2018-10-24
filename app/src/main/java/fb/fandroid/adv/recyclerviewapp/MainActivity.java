@@ -93,32 +93,6 @@ public class MainActivity extends AppCompatActivity implements ContactsAdapter.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      //  setContentView(R.layout.activity_users);// Lookup the recyclerview in activity layout
-       // rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
-
-        //http://qaru.site/questions/144487/recyclerview-store-restore-state-between-activities
-        //---проверим перезапускалось ли приложение( при перевороте экрана например)
-
-      /*
-        if (savedInstanceState!=null){
-            Log.d("savedInstanceState", String.valueOf(savedInstanceState));
-          }
-
-    */
-
-        //http://qaru.site/questions/18765/how-to-save-recyclerviews-scroll-position-using-recyclerviewstate
-     //   https://trickyandroid.com/saving-android-view-state-correctly/
-
-        //https://triplebyte.com/candidate_faq
-
-    /*    contacts = Contact.createContactsList(2);// Инициализтруем наш список контактов Список элементов первого вида
-
-        ContactsAdapter adapter = new ContactsAdapter(contacts);// Create adapter passing in the sample user data
-
-        rvContacts.setAdapter(adapter);// Attach the adapter to the recyclerview to populate items
-        // Set layout manager to position the items
-        rvContacts.setLayoutManager(new LinearLayoutManager(this));// That's all!
-*/
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
