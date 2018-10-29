@@ -16,6 +16,11 @@ import fb.fandroid.adv.recyclerviewapp.mFragments.RecyclerFragment;
 import fb.fandroid.adv.recyclerviewapp.mRecycler.Contact;
 import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
 
+////https://www.grokkingandroid.com/first-glance-androids-recyclerview/
+//
+//https://guides.codepath.com/android/Using-the-RecyclerView#layoutmanagers
+
+
 /*
 RecyclerViewApp
 На экране должен быть определен RecyclerView (на активити или фрагменте - на усмотрение исполнителя)
