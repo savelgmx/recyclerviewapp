@@ -29,10 +29,10 @@ import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
  * Created by Administrator on 08.10.2018.
  */
 
-public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,LoaderManager.LoaderCallbacks<Cursor>{
+public class RecyclerFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private RecyclerView mRecycler;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     //private final MockAdapter mMockAdapter=new MockAdapter();
 
     private final ContactsAdapter mContactsAdapter = new ContactsAdapter();
@@ -74,8 +74,6 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         mRecycler = view.findViewById(R.id.recycler);
-        mSwipeRefreshLayout = view.findViewById(R.id.refresher);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
         mErrorView=view.findViewById(R.id.error_view);
 
          }
@@ -91,18 +89,11 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     mContactsAdapter.setListener(mListener);
 
+    getLoaderManager().restartLoader(0,null,this);//иницыализируем Лоадер
 
 
 }
 
-
-    @Override
-    public void onRefresh() {
-
-    getLoaderManager().restartLoader(0,null,this);//иницыализируем Лоадер
-
-
-    }
 
     @NonNull
     @Override
@@ -120,12 +111,6 @@ public class RecyclerFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
 
         mContactsAdapter.swapCursor(data);
-
-        if (mSwipeRefreshLayout.isRefreshing()){//мы еще и убираем индикатор загрузки в SwipeRefreshLayout.
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
-
-
 
     }
 
