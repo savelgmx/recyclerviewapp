@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import android.view.ViewGroup;
 
 import java.util.Random;
 
-import fb.fandroid.adv.recyclerviewapp.CardDecoration;
 import fb.fandroid.adv.recyclerviewapp.R;
 import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
 
@@ -85,7 +83,6 @@ public class RecyclerFragment extends Fragment implements LoaderManager.LoaderCa
     mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
    // mRecycler.setAdapter(mMockAdapter);
     mRecycler.setAdapter(mContactsAdapter);
-    mRecycler.addItemDecoration(new CardDecoration());
 
     mContactsAdapter.setListener(mListener);
 
@@ -124,5 +121,6 @@ public class RecyclerFragment extends Fragment implements LoaderManager.LoaderCa
         super.onDetach();
     }
 }
+
 
 
