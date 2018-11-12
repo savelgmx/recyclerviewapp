@@ -1,20 +1,17 @@
 package fb.fandroid.adv.recyclerviewapp;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fb.fandroid.adv.recyclerviewapp.mFragments.RecyclerFragment;
-import fb.fandroid.adv.recyclerviewapp.mRecycler.Contact;
-import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
+import fb.fandroid.adv.recyclerviewapp.mRecycler.RecyclerViewAdapter;
 
 ////https://www.grokkingandroid.com/first-glance-androids-recyclerview/
 //
@@ -42,17 +39,16 @@ ViewHolder’ы должны быть легко различимы на гла�
 Дополнительно: При перевороте экрана, список должен правильно воссоздаться (элементы должны быть в том же количестве, порядке и типа, что и до поворота).
 Дополнительно: При добавлении элемента, список должен прокручиваться до него (чтобы новый элемент был виден на экране).
  */
-public class MainActivity extends AppCompatActivity implements ContactsAdapter.OnItemClickListener{
+public class MainActivity extends AppCompatActivity {
 
-    private final String KEY_RECYCLER_STATE = "recycler_state";
-    private RecyclerView mRecyclerView;
     private static Bundle mBundleRecyclerViewState;
 
+    private RecyclerView mRecyclerView;
+    private RecyclerViewAdapter mAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
 
-    ArrayList<Contact> contacts;
-    public RecyclerView rvContacts;
 
-  //  http://qaru.site/questions/18765/how-to-save-recyclerviews-scroll-position-using-recyclerviewstate
+    //  http://qaru.site/questions/18765/how-to-save-recyclerviews-scroll-position-using-recyclerviewstate
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements ContactsAdapter.O
         return true;
     }
 
-     public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+
         // получим идентификатор выбранного пункта меню
         int id = item.getItemId();
 
@@ -68,23 +65,17 @@ public class MainActivity extends AppCompatActivity implements ContactsAdapter.O
         switch (id) {
             case R.id.action_add_type1_item:
 
-                //-Add Element type1  in Recycler view
+                mAdapter = new RecyclerViewAdapter(getIemTypeOne("Serseya","Lannister"));
 
-                // Add a new contact
-                contacts.add(0, new Contact("Barney", true));
-// Notify the adapter that an item was inserted at position 0
-                rvContacts.getAdapter().notifyDataSetChanged();
-                 return true;
-            case R.id.action_add_type2_item:
-                //----Add Element type2 in RecyclerView
-
-                //////
-// Add a new contact
-                contacts.add(0, new Contact("Type2", true));
-                rvContacts.getAdapter().notifyDataSetChanged();
+                mAdapter.addItem(this, RecyclerViewAdapter.USER);//-Add Element type1  in Recycler view
+//                mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
                 return true;
-// Notify the adapter that an item was inserted at position 0
-                //---end of laucnch add
+            case R.id.action_add_type2_item:
+
+                mAdapter = new RecyclerViewAdapter(getIemTypeTwo());
+                mAdapter.addItem(this, RecyclerViewAdapter.IMAGE);  //----Add Element type2 in RecyclerView
+ //               mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
+                return true;
             case R.id.action_exit:
                 System.exit(0);
                 return true;
@@ -93,10 +84,22 @@ public class MainActivity extends AppCompatActivity implements ContactsAdapter.O
         }
     }
 
+    private ArrayList<Object> getIemTypeOne(String Name,String LastName) {
+        ArrayList<Object> item = new ArrayList<>();
+        item.add(new User(Name,LastName));
+        return item;
+    }
+    private ArrayList<Object> getIemTypeTwo() {
+        ArrayList<Object> item = new ArrayList<>();
+        item.add("image");
+        return item;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //initViews();
 
 
         if (savedInstanceState == null) {
@@ -108,23 +111,4 @@ public class MainActivity extends AppCompatActivity implements ContactsAdapter.O
 
     }
 
-    @Override
-    public void OnItemClick(String id) {
-
-        Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER},
-
-                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND "
-                        + ContactsContract.CommonDataKinds.Phone.TYPE + " = ?",
-                new String[]{id, String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)},
-                null);
-
-            if (cursor!=null&&cursor.moveToFirst()){
-                String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                cursor.close();
-                startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:"+number)));
-
-            }
-
-    }
 }

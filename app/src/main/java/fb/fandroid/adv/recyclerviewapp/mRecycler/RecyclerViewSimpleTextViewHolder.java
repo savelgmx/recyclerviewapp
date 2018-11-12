@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import fb.fandroid.adv.recyclerviewapp.R;
+
 class RecyclerViewSimpleTextViewHolder extends RecyclerView.ViewHolder{
 
     TextView mTextView;

@@ -87,7 +87,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         User user = (User) mItems.get(position);
         if (user != null) {
             vh1.getFirstName().setText("Name: " + user.getFirstName());
-            vh1.getSecondName().setText("Hometown: " + user.getSecondName());
+            vh1.getSecondName().setText("Last Name: " + user.getSecondName());
         }
     }
 

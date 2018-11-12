@@ -17,31 +17,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import fb.fandroid.adv.recyclerviewapp.R;
-import fb.fandroid.adv.recyclerviewapp.mRecycler.ContactsAdapter;
+import fb.fandroid.adv.recyclerviewapp.User;
+import fb.fandroid.adv.recyclerviewapp.mRecycler.RecyclerViewAdapter;
 
 
 /**
  * Created by Administrator on 08.10.2018.
  */
 
-public class RecyclerFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class RecyclerFragment extends Fragment{
 
+      //private final MockAdapter mMockAdapter=new MockAdapter();
     private RecyclerView mRecycler;
-
-    //private final MockAdapter mMockAdapter=new MockAdapter();
-
-    private final ContactsAdapter mContactsAdapter = new ContactsAdapter();
     private View mErrorView;
     private Random mRandom = new Random();
-    private ContactsAdapter.OnItemClickListener mListener;
+    private RecyclerViewAdapter mRecyclerViewAdapter;
 
 
     public static RecyclerFragment newInstance() {
-     return new RecyclerFragment();
-     }
+        return new RecyclerFragment();
+    }
+
+
+
+    private ArrayList<Object> getInitData() {
+        ArrayList<Object> items = new ArrayList<>();
+        items.add(new User("Tiryon", "Lannister")); //элемент 1 вида в списке
+        items.add("image"); //элемент 2 вида в списке
+        return items;
+    }
+
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -51,75 +60,36 @@ public class RecyclerFragment extends Fragment implements LoaderManager.LoaderCa
 
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof ContactsAdapter.OnItemClickListener) {
-
-            mListener= (ContactsAdapter.OnItemClickListener) context;
-
-        }
     }
 
 
     @Nullable
     @Override
 
-
-
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fr_recycler, container, false);
-     }
+    }
 
     @Override
- public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         mRecycler = view.findViewById(R.id.recycler);
         mErrorView=view.findViewById(R.id.error_view);
+    }
 
-         }
 
-
-@Override
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-    mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-   // mRecycler.setAdapter(mMockAdapter);
-    mRecycler.setAdapter(mContactsAdapter);
-
-    mContactsAdapter.setListener(mListener);
-
-    getLoaderManager().restartLoader(0,null,this);//иницыализируем Лоадер
+        super.onActivityCreated(savedInstanceState);
+        mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerViewAdapter =new RecyclerViewAdapter(getInitData()); //инициалаизируем адаптер и заполним его первонячальными данными
 
 
-}
-
-
-    @NonNull
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        return new CursorLoader(getActivity(),
-                ContactsContract.Contacts.CONTENT_URI,
-                new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME},
-                null,
-                null,
-                ContactsContract.Contacts._ID
-        );
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-
-        mContactsAdapter.swapCursor(data);
+        mRecycler.setAdapter(mRecyclerViewAdapter);
 
     }
 
-    @Override
-    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
 
-    }
-
-    public void onDetach(){
-        mListener=null;
-        super.onDetach();
-    }
 }
 
 
