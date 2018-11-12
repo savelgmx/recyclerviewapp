@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import fb.fandroid.adv.recyclerviewapp.mFragments.RecyclerFragment;
 import fb.fandroid.adv.recyclerviewapp.mRecycler.RecyclerViewAdapter;
@@ -46,10 +45,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
-
-
-    //  http://qaru.site/questions/18765/how-to-save-recyclerviews-scroll-position-using-recyclerviewstate
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -68,13 +63,16 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter = new RecyclerViewAdapter(getIemTypeOne("Serseya","Lannister"));
 
                 mAdapter.addItem(this, RecyclerViewAdapter.USER);//-Add Element type1  in Recycler view
+                mAdapter.notifyItemChanged(mAdapter.getItemCount()  );
+
 //                mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
                 return true;
             case R.id.action_add_type2_item:
 
                 mAdapter = new RecyclerViewAdapter(getIemTypeTwo());
                 mAdapter.addItem(this, RecyclerViewAdapter.IMAGE);  //----Add Element type2 in RecyclerView
- //               mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
+                mAdapter.notifyDataSetChanged();
+                //               mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
                 return true;
             case R.id.action_exit:
                 System.exit(0);
