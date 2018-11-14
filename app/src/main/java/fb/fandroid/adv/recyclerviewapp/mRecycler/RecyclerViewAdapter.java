@@ -10,8 +10,6 @@ import java.util.List;
 
 import fb.fandroid.adv.recyclerviewapp.R;
 import fb.fandroid.adv.recyclerviewapp.User;
-import fb.fandroid.adv.recyclerviewapp.ViewHolderTypeOne;
-import fb.fandroid.adv.recyclerviewapp.ViewHolderTypeTwo;
 import fb.fandroid.adv.recyclerviewapp.mFragments.RecyclerFragment;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter {

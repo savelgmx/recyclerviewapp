@@ -1,8 +1,10 @@
-package fb.fandroid.adv.recyclerviewapp;
+package fb.fandroid.adv.recyclerviewapp.mRecycler;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+
+import fb.fandroid.adv.recyclerviewapp.R;
 
 public class ViewHolderTypeTwo extends RecyclerView.ViewHolder {
 
