@@ -40,18 +40,10 @@ ViewHolder’ы должны быть легко различимы на гла�
  */
 public class MainActivity extends AppCompatActivity {
 
- /*   private static Bundle mBundleRecyclerViewState;
-
-    private RecyclerView mRecyclerView;
-    private RecyclerViewAdapter mAdapter;
-    private LinearLayoutManager mLinearLayoutManager;
-*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //initViews();
-
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

@@ -57,15 +57,15 @@ public class RecyclerFragment extends Fragment{
         switch (id) {
             case R.id.action_add_type1_item:
 
-               mRecyclerViewAdapter.addItem(this, RecyclerViewAdapter.USER);//-Add Element type1  in Recycler view
+                mRecyclerViewAdapter.addItem(this, RecyclerViewAdapter.USER);//-Add Element type1  in Recycler view
                 mRecyclerViewAdapter.notifyItemChanged(mRecyclerViewAdapter.getItemCount());
-               mRecycler.scrollToPosition(mRecyclerViewAdapter.getItemCount() - 1);
+                mRecycler.scrollToPosition(mRecyclerViewAdapter.getItemCount() - 1);
                 return true;
             case R.id.action_add_type2_item:
 
-                 mRecyclerViewAdapter.addItem(this, RecyclerViewAdapter.IMAGE);  //----Add Element type2 in RecyclerView
+                mRecyclerViewAdapter.addItem(this, RecyclerViewAdapter.IMAGE);  //----Add Element type2 in RecyclerView
                 mRecyclerViewAdapter.notifyItemChanged(mRecyclerViewAdapter.getItemCount());
-               mRecycler.scrollToPosition(mRecyclerViewAdapter.getItemCount() - 1);
+                mRecycler.scrollToPosition(mRecyclerViewAdapter.getItemCount() - 1);
                 return true;
             case R.id.action_exit:
                 System.exit(0);
@@ -90,9 +90,9 @@ public class RecyclerFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
         setHasOptionsMenu(true);
 
+        mRecyclerViewAdapter =new RecyclerViewAdapter(getInitData()); //инициалаизируем адаптер и заполним его первонячальными данными
     }
 
     public void onAttach(Context context) {
@@ -111,14 +111,13 @@ public class RecyclerFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         mRecycler = view.findViewById(R.id.recycler);
-     }
+    }
 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerViewAdapter =new RecyclerViewAdapter(getInitData()); //инициалаизируем адаптер и заполним его первонячальными данными
         mRecycler.setAdapter(mRecyclerViewAdapter);
 
     }
