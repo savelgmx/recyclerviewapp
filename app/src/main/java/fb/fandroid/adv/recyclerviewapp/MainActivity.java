@@ -40,59 +40,12 @@ ViewHolder’ы должны быть легко различимы на гла�
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static Bundle mBundleRecyclerViewState;
+ /*   private static Bundle mBundleRecyclerViewState;
 
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        // получим идентификатор выбранного пункта меню
-        int id = item.getItemId();
-
-        // Операции для выбранного пункта меню
-        switch (id) {
-            case R.id.action_add_type1_item:
-
-                mAdapter = new RecyclerViewAdapter(getIemTypeOne("Serseya","Lannister"));
-
-                mAdapter.addItem(this, RecyclerViewAdapter.USER);//-Add Element type1  in Recycler view
-                mAdapter.notifyItemChanged(mAdapter.getItemCount()  );
-
-//                mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
-                return true;
-            case R.id.action_add_type2_item:
-
-                mAdapter = new RecyclerViewAdapter(getIemTypeTwo());
-                mAdapter.addItem(this, RecyclerViewAdapter.IMAGE);  //----Add Element type2 in RecyclerView
-                mAdapter.notifyDataSetChanged();
-                //               mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
-                return true;
-            case R.id.action_exit:
-                System.exit(0);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private ArrayList<Object> getIemTypeOne(String Name,String LastName) {
-        ArrayList<Object> item = new ArrayList<>();
-        item.add(new User(Name,LastName));
-        return item;
-    }
-    private ArrayList<Object> getIemTypeTwo() {
-        ArrayList<Object> item = new ArrayList<>();
-        item.add("image");
-        return item;
-    }
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,12 +1,10 @@
 package fb.fandroid.adv.recyclerviewapp.mRecycler;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -14,15 +12,17 @@ import fb.fandroid.adv.recyclerviewapp.R;
 import fb.fandroid.adv.recyclerviewapp.User;
 import fb.fandroid.adv.recyclerviewapp.ViewHolderTypeOne;
 import fb.fandroid.adv.recyclerviewapp.ViewHolderTypeTwo;
+import fb.fandroid.adv.recyclerviewapp.mFragments.RecyclerFragment;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
-    public static final int USER = 0, IMAGE = 1;
+    public static final int USER = 0;
+    public static final int IMAGE = 1;
 
     private List<Object> mItems;
 
     public RecyclerViewAdapter(List<Object> items) {
-        mItems = items;
+        this.mItems = items;
     }
 
     @NonNull
@@ -106,7 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         return mItems.size();
     }
 
-    public void addItem(Context context, int type) {
+    public void addItem(RecyclerFragment context, int type) {
         switch (type) {
             case IMAGE:
                 mItems.add("image");
@@ -117,8 +117,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
                 notifyItemInserted(mItems.size());
                 break;
             default:
-                Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
-                break;
+                 break;
         }
     }
 
