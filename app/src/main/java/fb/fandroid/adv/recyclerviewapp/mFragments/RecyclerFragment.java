@@ -75,16 +75,6 @@ public class RecyclerFragment extends Fragment{
         }
     }
 
-    private ArrayList<Object> getIemTypeOne(String Name,String LastName) {
-        ArrayList<Object> item = new ArrayList<>();
-        item.add(new User(Name,LastName));
-        return item;
-    }
-    private ArrayList<Object> getIemTypeTwo() {
-        ArrayList<Object> item = new ArrayList<>();
-        item.add("image");
-        return item;
-    }
 
 
     private ArrayList<Object> getInitData() {
